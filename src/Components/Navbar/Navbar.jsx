@@ -2,8 +2,10 @@ import { NavLink } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { FaSun, FaMoon } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
+import "react-tooltip/dist/react-tooltip.css";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -113,7 +115,9 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <p className="normal-case text-xl font-bold text-base-content">Sport<span className="text-orange-500 italic">i</span>fy</p>
+          <p className="normal-case text-xl font-bold text-base-content">
+            Sport<span className="text-orange-500 italic">i</span>fy
+          </p>
         </div>
 
         <div className="navbar-center hidden lg:flex">
@@ -130,17 +134,22 @@ const Navbar = () => {
 
           {user ? (
             <>
-              <div className="group relative">
-                <div className="btn btn-ghost btn-circle avatar">
+              <div>
+                <div
+                  data-tooltip-id="userTooltip" data-tooltip-content={user.displayName || "User"}
+                  className="btn btn-ghost btn-circle avatar"
+                >
                   <img
                     src={user.photoURL}
                     alt="User Avatar"
                     className="w-10 h-10 rounded-full"
                   />
                 </div>
-                <div className="absolute top-10 left-1/2 transform -translate-x-1/2 mt-2 px-3 py-1 bg-base-200 text-base-content text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                  {user.displayName || "User"}
-                </div>
+                <ReactTooltip
+                  id="userTooltip"
+                  place="bottom"
+                  effect="solid"
+                />
               </div>
               <button
                 onClick={handleLogout}

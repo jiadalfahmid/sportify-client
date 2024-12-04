@@ -10,7 +10,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const validatePassword = (password) => {
-    const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/; 
+    const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     return regex.test(password);
   };
 
@@ -49,66 +49,68 @@ const Register = () => {
   };
 
   return (
-    <div className="mx-auto min-h-screen flex justify-center items-center">
-      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-        <form onSubmit={handleSubmit} className="card-body">
-          <h2 className="text-center text-2xl font-bold">Sign Up</h2>
-          {error && <p className="text-red-500">{error}</p>}
-          {success && <p className="text-green-500">{success}</p>}
+    <div className="mx-auto min-h-screen flex justify-center items-center bg-base-200">
+      <div className="card bg-base-100 w-full max-w-md shadow-xl rounded-lg">
+        <form onSubmit={handleSubmit} className="card-body p-6">
+          <h2 className="text-center text-3xl font-bold text-base-content mb-6">
+            Create Your Account
+          </h2>
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+          {success && <p className="text-green-500 text-center mb-4">{success}</p>}
 
-          <div className="form-control">
+          <div className="form-control mb-4">
             <label className="label">
-              <span className="label-text">Name</span>
+              <span className="label-text text-base-content">Name</span>
             </label>
             <input
               type="text"
               name="name"
               placeholder="Enter your name"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               required
             />
           </div>
 
-          <div className="form-control">
+          <div className="form-control mb-4">
             <label className="label">
-              <span className="label-text">Photo URL</span>
+              <span className="label-text text-base-content">Photo URL</span>
             </label>
             <input
               type="text"
               name="photo"
               placeholder="Enter your photo URL"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               required
             />
           </div>
 
-          <div className="form-control">
+          <div className="form-control mb-4">
             <label className="label">
-              <span className="label-text">Email</span>
+              <span className="label-text text-base-content">Email</span>
             </label>
             <input
               type="email"
               name="email"
               placeholder="Enter your email"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               required
             />
           </div>
 
-          <div className="form-control relative">
+          <div className="form-control mb-6 relative">
             <label className="label">
-              <span className="label-text">Password</span>
+              <span className="label-text text-base-content">Password</span>
             </label>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Enter your password"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               required
             />
             <button
               type="button"
-              className="absolute right-3 top-12"
+              className="absolute right-3 top-12 text-lg text-base-content"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <IoIosEyeOff /> : <IoIosEye />}
@@ -118,24 +120,25 @@ const Register = () => {
           <div className="form-control mt-6">
             <button
               type="submit"
-              className="btn bg-blue-500"
+              className="btn bg-orange-500 hover:bg-orange-600 text-white w-full"
               disabled={loading}
             >
               {loading ? "Signing up..." : "Sign Up"}
             </button>
           </div>
-          <p className="text-center mt-4">
+
+          <p className="text-center text-base-content mt-4">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-500">
+            <Link to="/login" className="text-orange-500 hover:underline">
               Login
             </Link>
           </p>
 
-          <div className="divider">OR</div>
+          <div className="divider my-6 text-base-content">OR</div>
 
           <button
             onClick={handleGoogleLogin}
-            className="btn btn-outline btn-primary w-full mt-4"
+            className="btn btn-outline text-orange-500 border-orange-500 w-full hover:bg-orange-500 hover:text-white"
             disabled={loading}
           >
             Sign up with Google
