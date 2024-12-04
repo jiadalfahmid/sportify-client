@@ -11,7 +11,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Get the page user came from, default to "/"
   const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {
@@ -43,71 +42,66 @@ const Login = () => {
   };
 
   return (
-    <div className="mx-auto min-h-screen flex justify-center items-center">
-      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-        <form onSubmit={handleSubmit} className="card-body">
-          <h2 className="text-center text-2xl font-bold">Login</h2>
-          <div className="form-control">
+    <div className="mx-auto min-h-screen flex justify-center items-center bg-base-200">
+      <div className="card bg-base-100 w-full max-w-md shadow-xl rounded-lg">
+        <form onSubmit={handleSubmit} className="card-body p-6">
+          <h2 className="text-center text-3xl font-bold text-base-content mb-6">
+            Welcome Back!
+          </h2>
+          <div className="form-control mb-4">
             <label className="label">
-              <span className="label-text">Email</span>
+              <span className="label-text text-base-content">Email</span>
             </label>
             <input
               type="email"
               name="email"
-              placeholder="email"
-              className="input input-bordered"
+              placeholder="Enter your email"
+              className="input input-bordered w-full"
               required
             />
           </div>
 
-          <div className="form-control relative">
+          <div className="form-control mb-4 relative">
             <label className="label">
-              <span className="label-text">Password</span>
+              <span className="label-text text-base-content">Password</span>
             </label>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Enter your password"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               required
             />
             <button
               type="button"
-              className="absolute right-3 top-12"
+              className="absolute right-3 top-12 text-lg text-base-content"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <IoIosEyeOff /> : <IoIosEye />}
             </button>
-            <label className="label">
-              <Link
-                to="/forgot-password"
-                className="label-text-alt link link-hover"
-              >
-                Forgot password?
-              </Link>
-            </label>
           </div>
 
           <div className="form-control mt-6">
             <button
               type="submit"
-              className="btn bg-blue-500"
+              className="btn bg-orange-500 hover:bg-orange-600 text-white w-full"
               disabled={loading}
             >
               {loading ? "Logging in..." : "Login"}
             </button>
           </div>
 
-          <p className="text-center mt-4">
+          <p className="text-center text-base-content mt-4">
             Don't Have an Account?{" "}
-            <Link to="/register" className="text-blue-500">
+            <Link to="/register" className="text-orange-500 hover:underline">
               Register Now
             </Link>
           </p>
-          <div className="divider">OR</div>
+
+          <div className="divider my-6 text-base-content">OR</div>
           <button
             onClick={handleGoogleLogin}
-            className="btn btn-outline btn-primary w-full mt-4"
+            className="btn btn-outline text-orange-500 border-orange-500 w-full hover:bg-orange-500 hover:text-white"
             disabled={loading}
           >
             Login with Google

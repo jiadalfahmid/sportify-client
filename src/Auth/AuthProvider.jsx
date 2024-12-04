@@ -5,7 +5,6 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  sendPasswordResetEmail,
   updateProfile,
   onAuthStateChanged,
   signOut,
@@ -81,20 +80,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // Forgot Password Function
-  const forgotPassword = async (email) => {
-    setLoading(true);
-    setError(null);
-    setSuccess(null);
-    try {
-      await sendPasswordResetEmail(auth, email);
-      setSuccess('Password reset email sent!');
-      setLoading(false);
-    } catch (err) {
-      setError(err.message);
-      setLoading(false);
-    }
-  };
 
   // Logout Function
   const logout = async () => {
@@ -128,7 +113,6 @@ const AuthProvider = ({ children }) => {
     signUp,
     signUpWithGoogle,
     login,
-    forgotPassword,
     logout,
     loading,
     error,
