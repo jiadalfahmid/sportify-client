@@ -9,6 +9,8 @@ import Login from './../Components/Login/Login';
 import Register from "../Components/Register/Register";
 import AddEquipment from "../Components/AddEquipment/AddEquipment";
 import PrivateRouter from "./PrivateRouter";
+import AllSportsEquipment from "../Components/AllSportsEquipment/AllSportsEquipment";
+import EquipmentDetails from "../Components/EquipmentDetails/EquipmentDetails";
 
 
 const router = createBrowserRouter([
@@ -43,8 +45,16 @@ const router = createBrowserRouter([
             element: <Register />,
          },
          {
+            path: "/all-sports-equipment",
+            element: <AllSportsEquipment/>,
+          },
+         {
             path: "/add-equipment",
             element: <PrivateRouter><AddEquipment/></PrivateRouter>,
+          },
+         {
+            path: "/equipment/:id",
+            element: <PrivateRouter><EquipmentDetails/></PrivateRouter>,
           },
          {
             path: "/my-equipment-list",
