@@ -19,12 +19,6 @@ const ErrorPage = () => {
           >
             Back to Homepage
           </a>
-          <a
-            href="/contact"
-            className="ml-4 inline-block bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition"
-          >
-            Contact Support
-          </a>
         </div>
       </div>
     </div>

@@ -159,12 +159,20 @@ const Navbar = () => {
               </button>
             </>
           ) : (
+            <>
             <NavLink
               to="/login"
               className="btn bg-orange-500 hover:bg-orange-600 text-white"
-            >
+              >
               Login
             </NavLink>
+            <NavLink
+              to="/register"
+              className="btn bg-orange-500 hover:bg-orange-600 text-white"
+              >
+              Register
+            </NavLink>
+              </>
           )}
         </div>
       </div>
