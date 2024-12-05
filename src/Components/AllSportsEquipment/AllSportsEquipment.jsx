@@ -41,7 +41,7 @@ const AllSportsEquipment = () => {
                   <img
                     src={item.image}
                     alt={item.itemName}
-                    className="w-36 h-36 object-cover rounded"
+                    className="w-36 h-36 object-cover rounded bg-white"
                   />
                 </td>
                 <td className="border-none px-4 py-2">{item.itemName}</td>
