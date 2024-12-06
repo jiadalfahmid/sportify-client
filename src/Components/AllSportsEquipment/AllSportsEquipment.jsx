@@ -3,14 +3,28 @@ import { useNavigate } from "react-router-dom";
 
 const AllSportsEquipment = () => {
   const [equipmentList, setEquipmentList] = useState(null); // null indicates data loading
+  const [isSorting, setIsSorting] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("https://sportify-sand-six.vercel.app/equipment")
+  const fetchEquipment = (sort = false) => {
+    setIsSorting(sort);
+    const url = sort
+      ? "http://localhost:5000/equipment/sorted?sort=price_desc"
+      : "https://sportify-sand-six.vercel.app/equipment";
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setEquipmentList(data))
-      .catch((error) => console.error("Error fetching equipment:", error));
+      .catch((error) => console.error("Error fetching equipment:", error))
+      .finally(() => setIsSorting(false));
+  };
+
+  useEffect(() => {
+    fetchEquipment();
   }, []);
+
+  const handleSort = () => {
+    fetchEquipment(true); // Fetch sorted data
+  };
 
   const handleViewDetails = (id) => {
     navigate(`/equipment/${id}`);
@@ -21,6 +35,20 @@ const AllSportsEquipment = () => {
       <h1 className="text-3xl font-bold mb-6 text-center text-orange-500">
         All Sports Equipment
       </h1>
+
+      {/* Sort Button */}
+      <div className="text-right mb-4">
+        <button
+          onClick={handleSort}
+          className={`bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition ${
+            isSorting ? "cursor-not-allowed opacity-50" : ""
+          }`}
+          disabled={isSorting}
+        >
+          {isSorting ? "Sorting..." : "Sort by Price (Descending)"}
+        </button>
+      </div>
+
       <div className="overflow-x-auto">
         <table className="table-auto w-full border-collapse border-none border">
           <thead className="bg-base-300">
@@ -34,33 +62,26 @@ const AllSportsEquipment = () => {
             </tr>
           </thead>
           <tbody>
-
             {!equipmentList &&
               Array(4)
                 .fill(0)
                 .map((_, index) => (
                   <tr key={index} className="hover:bg-base-200">
-                    {/* Skeleton for Image */}
                     <td className="px-4 py-2">
                       <div className="w-36 h-36 bg-base-300 skeleton rounded-md shadow-md"></div>
                     </td>
-                    {/* Skeleton for Name */}
                     <td className="px-4 py-2">
                       <div className="w-24 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
                     </td>
-                    {/* Skeleton for Category */}
                     <td className="px-4 py-2">
                       <div className="w-20 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
                     </td>
-                    {/* Skeleton for Price */}
                     <td className="px-4 py-2">
                       <div className="w-16 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
                     </td>
-                    {/* Skeleton for Stock */}
                     <td className="px-4 py-2">
                       <div className="w-20 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
                     </td>
-                    {/* Skeleton for Button */}
                     <td className="px-4 py-2 text-center">
                       <div className="w-24 h-8 bg-base-300 skeleton rounded-md shadow-md"></div>
                     </td>

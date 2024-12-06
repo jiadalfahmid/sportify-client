@@ -1,164 +1,178 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { AuthContext } from "./../../Auth/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const UpdateEquipment = () => {
-  const { id } = useParams(); // Fetch the equipment ID from the route params
+  const { id } = useParams(); // Retrieve equipment ID from the URL
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext); // Access user information
-  const [equipmentData, setEquipmentData] = useState(null); // State to hold equipment data
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(""); // Error state
+  const [formData, setFormData] = useState({
+    itemName: "",
+    description: "",
+    price: "",
+    category: "",
+    condition: "",
+    quantity: "",
+    userEmail: "",
+    userName: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // Fetch equipment data by ID
+  // Fetch current equipment data to populate the form
   useEffect(() => {
     fetch(`//localhost:5000/equipment/${id}`)
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch equipment data.");
+          throw new Error("Failed to fetch equipment details.");
         }
         return res.json();
       })
-      .then((data) => setEquipmentData(data))
-      .catch((error) => setError(error.message))
-      .finally(() => setLoading(false));
+      .then((data) => {
+        setFormData({
+          itemName: data.itemName || "",
+          image: data.image || "",
+          description: data.description || "",
+          price: data.price || "",
+          categoryName: data.categoryName || "",
+          rating: data.rating || "",
+          stockStatus: data.stockStatus || "",
+          processingTime: data.processingTime || "",
+          customization: data.customization || "",
+          userEmail: data.userEmail || "",
+          userName: data.userName || "",
+        });
+      })
+      .catch((error) => setError(error.message));
   }, [id]);
 
-  // Handle form submission
-  const handleUpdate = (event) => {
-    event.preventDefault();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    const form = event.target;
-    const updatedEquipment = {
-      itemName: form.itemName.value,
-      description: form.description.value,
-      image: form.image.value,
-      category: form.category.value,
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // Parse the price to a number before sending the data
+    const updatedFormData = {
+      ...formData,
+      price: parseFloat(formData.price), // Ensure price is numeric
     };
 
-    fetch(`//localhost:5000/equipment/${_id}`, {
+    fetch(`//localhost:5000/equipment/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedEquipment),
+      body: JSON.stringify(updatedFormData),
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to update equipment data.");
+          throw new Error("Failed to update equipment.");
         }
         return res.json();
       })
       .then(() => {
         toast.success("Equipment updated successfully!");
-        navigate("/my-equipment-list"); // Redirect to the equipment list page
+        setTimeout(() => navigate("/my-equipment-list"), 2000); // Navigate after toast
       })
-      .catch((error) => setError(error.message));
+      .catch((error) => {
+        toast.error(error.message);
+        setError(error.message);
+      })
+      .finally(() => setIsLoading(false));
   };
 
-  if (loading) {
-    return <p className="text-center text-gray-500">Loading equipment data...</p>;
-  }
-
-  if (error) {
-    return <p className="text-center text-red-500">{error}</p>;
-  }
-
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center text-orange-500">
+    <div className="max-w-4xl mx-auto my-8 p-6 bg-base-200 rounded-md shadow-md">
+      <h1 className="text-2xl font-bold mb-6 text-center text-orange-500">
         Update Equipment
       </h1>
-      <form onSubmit={handleUpdate} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="userName">
-            User Name
-          </label>
-          <input
-            type="text"
-            id="userName"
-            name="userName"
-            value={user?.displayName || ""}
-            readOnly
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
-          />
+      {error && <p className="text-center text-red-500 mb-4">{error}</p>}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {["image", "itemName", "categoryName", "rating", "stockStatus", "customization", "processingTime"].map((key) => (
+            <div key={key}>
+              <label className="block text-base-content font-medium mb-2">
+                {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+              </label>
+              <input
+                type="text"
+                name={key}
+                value={formData[key]}
+                onChange={handleChange}
+                className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
+                required
+              />
+            </div>
+          ))}
+
+          {/* Price Field (Numeric Input) */}
+          <div>
+            <label className="block text-base-content font-medium mb-2">Price</label>
+            <input
+              type="number" // Set input type to number
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
+              required
+            />
+          </div>
+
+          {/* Description Field */}
+          <div className="md:col-span-2">
+            <label className="block text-base-content font-medium mb-2">Description</label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows="4"
+              className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
+              required
+            />
+          </div>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={user?.email || ""}
-            readOnly
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
-          />
+
+        {/* Read-only Fields */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-base-content font-medium mb-2">User Email</label>
+            <input
+              type="email"
+              name="userEmail"
+              value={formData.userEmail}
+              className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
+              readOnly
+            />
+          </div>
+          <div>
+            <label className="block text-base-content font-medium mb-2">User Name</label>
+            <input
+              type="text"
+              name="userName"
+              value={formData.userName}
+              className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
+              readOnly
+            />
+          </div>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="itemName">
-            Equipment Name
-          </label>
-          <input
-            type="text"
-            id="itemName"
-            name="itemName"
-            defaultValue={equipmentData?.itemName || ""}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="description">
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            defaultValue={equipmentData?.description || ""}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          ></textarea>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="image">
-            Image URL
-          </label>
-          <input
-            type="text"
-            id="image"
-            name="image"
-            defaultValue={equipmentData?.image || ""}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="category">
-            Category
-          </label>
-          <input
-            type="text"
-            id="category"
-            name="category"
-            defaultValue={equipmentData?.category || ""}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="flex items-center justify-between">
+
+        {/* Submit Button */}
+        <div className="text-center">
           <button
             type="submit"
-            className="btn bg-orange-500 text-white hover:bg-orange-600"
+            disabled={isLoading}
+            className={`bg-orange-500 text-white font-bold py-2 px-6 rounded ${
+              isLoading ? "cursor-not-allowed opacity-50" : "hover:bg-orange-600 transition"
+            }`}
           >
-            Update Equipment
+            {isLoading ? "Updating..." : "Update Equipment"}
           </button>
         </div>
       </form>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };
