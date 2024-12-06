@@ -2,19 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AllSportsEquipment = () => {
-  const [equipmentList, setEquipmentList] = useState([]);
+  const [equipmentList, setEquipmentList] = useState(null); // null indicates data loading
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch data from API
-    fetch("http://localhost:5000/equipment")
+    fetch("https://sportify-sand-six.vercel.app/equipment")
       .then((res) => res.json())
       .then((data) => setEquipmentList(data))
       .catch((error) => console.error("Error fetching equipment:", error));
   }, []);
 
   const handleViewDetails = (id) => {
-    navigate(`/equipment/${id}`); // Redirect to details page with equipment ID
+    navigate(`/equipment/${id}`);
   };
 
   return (
@@ -35,29 +34,63 @@ const AllSportsEquipment = () => {
             </tr>
           </thead>
           <tbody>
-            {equipmentList.map((item) => (
-              <tr key={item._id} className="hover:bg-base-200">
-                <td className="border-none px-4 py-2">
-                  <img
-                    src={item.image}
-                    alt={item.itemName}
-                    className="w-36 h-36 object-cover rounded bg-white"
-                  />
-                </td>
-                <td className="border-none px-4 py-2">{item.itemName}</td>
-                <td className="border-none px-4 py-2">{item.categoryName}</td>
-                <td className="border-none px-4 py-2">${item.price}</td>
-                <td className="border-none px-4 pl-8 py-2">{item.stockStatus}</td>
-                <td className="border-none px-4 py-2 text-center">
-                  <button
-                    onClick={() => handleViewDetails(item._id)}
-                    className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition"
-                  >
-                    View Details
-                  </button>
-                </td>
-              </tr>
-            ))}
+
+            {!equipmentList &&
+              Array(4)
+                .fill(0)
+                .map((_, index) => (
+                  <tr key={index} className="hover:bg-base-200">
+                    {/* Skeleton for Image */}
+                    <td className="px-4 py-2">
+                      <div className="w-36 h-36 bg-base-300 skeleton rounded-md shadow-md"></div>
+                    </td>
+                    {/* Skeleton for Name */}
+                    <td className="px-4 py-2">
+                      <div className="w-24 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
+                    </td>
+                    {/* Skeleton for Category */}
+                    <td className="px-4 py-2">
+                      <div className="w-20 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
+                    </td>
+                    {/* Skeleton for Price */}
+                    <td className="px-4 py-2">
+                      <div className="w-16 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
+                    </td>
+                    {/* Skeleton for Stock */}
+                    <td className="px-4 py-2">
+                      <div className="w-20 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
+                    </td>
+                    {/* Skeleton for Button */}
+                    <td className="px-4 py-2 text-center">
+                      <div className="w-24 h-8 bg-base-300 skeleton rounded-md shadow-md"></div>
+                    </td>
+                  </tr>
+                ))}
+
+            {equipmentList &&
+              equipmentList.map((item) => (
+                <tr key={item._id} className="hover:bg-base-200">
+                  <td className="border-none px-4 py-2">
+                    <img
+                      src={item.image}
+                      alt={item.itemName}
+                      className="w-36 h-36 object-cover rounded bg-white"
+                    />
+                  </td>
+                  <td className="border-none px-4 py-2">{item.itemName}</td>
+                  <td className="border-none px-4 py-2">{item.categoryName}</td>
+                  <td className="border-none px-4 py-2">${item.price}</td>
+                  <td className="border-none px-4 py-2">{item.stockStatus}</td>
+                  <td className="border-none px-4 py-2 text-center">
+                    <button
+                      onClick={() => handleViewDetails(item._id)}
+                      className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition"
+                    >
+                      View Details
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

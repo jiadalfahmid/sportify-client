@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
 
 const AddEquipment = () => {
@@ -31,13 +31,16 @@ const AddEquipment = () => {
     setErrorMessage("");
     setSuccessMessage("");
     try {
-      const response = await fetch("http://localhost:5000/equipment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://sportify-sand-six.vercel.app/equipment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         setSuccessMessage("Equipment added successfully!");
@@ -106,7 +109,9 @@ const AddEquipment = () => {
 
         {/* Read-only Fields */}
         <div>
-          <label className="block text-base-content font-medium">User Email</label>
+          <label className="block text-base-content font-medium">
+            User Email
+          </label>
           <input
             type="email"
             name="userEmail"
@@ -116,7 +121,9 @@ const AddEquipment = () => {
           />
         </div>
         <div>
-          <label className="block text-base-content font-medium">User Name</label>
+          <label className="block text-base-content font-medium">
+            User Name
+          </label>
           <input
             type="text"
             name="userName"
@@ -132,7 +139,9 @@ const AddEquipment = () => {
             type="submit"
             disabled={isLoading}
             className={`bg-orange-500 text-white font-bold py-2 px-4 rounded ${
-              isLoading ? "cursor-not-allowed opacity-50" : "hover:bg-orange-600 transition"
+              isLoading
+                ? "cursor-not-allowed opacity-50"
+                : "hover:bg-orange-600 transition"
             }`}
           >
             {isLoading ? "Adding..." : "Add Equipment"}

@@ -5,7 +5,7 @@ import { AuthContext } from "../../Auth/AuthProvider";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { signUp, error, loading, setError, setSuccess, success } =
+  const { signUp, error, loading, setError, setSuccess, success,signUpWithGoogle } =
     useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
 

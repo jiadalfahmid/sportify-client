@@ -8,7 +8,7 @@ const EquipmentDetails = () => {
 
   useEffect(() => {
     // Fetch product details by ID
-    fetch(`http://localhost:5000/equipment/${id}`)
+    fetch(`https://sportify-sand-six.vercel.app/equipment/${id}`)
       .then((res) => res.json())
       .then((data) => setEquipment(data))
       .catch((error) => console.error("Error fetching details:", error));
