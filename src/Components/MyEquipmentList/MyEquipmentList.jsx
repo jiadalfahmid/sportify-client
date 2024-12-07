@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./../../Auth/AuthProvider";
-import { toast, ToastContainer } from "react-toastify"; // Import toast from react-toastify
-import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toastify
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; 
 
 const MyEquipmentList = () => {
   const [userEquipment, setUserEquipment] = useState([]);
@@ -43,12 +43,10 @@ const MyEquipmentList = () => {
         return res.json();
       })
       .then(() => {
-        // Remove the deleted item from the UI
         setUserEquipment((prevEquipment) =>
           prevEquipment.filter((item) => item._id !== id)
         );
         document.getElementById("delete_modal").close();
-        // Show a success toast after deletion
         toast.success("Equipment deleted successfully!");
       })
       .catch((error) => setError(error.message));
@@ -76,7 +74,7 @@ const MyEquipmentList = () => {
             <div key={equipment._id} className="card bg-base-100 shadow-xl">
               <figure className="px-10 pt-10">
                 <img
-                  src={equipment.image || "https://via.placeholder.com/150"}
+                  src={equipment.image}
                   alt={equipment.itemName}
                   className="rounded-xl w-36 h-36 object-cover bg-white"
                 />
@@ -136,8 +134,6 @@ const MyEquipmentList = () => {
           </div>
         </div>
       </dialog>
-
-      {/* Toast Container */}
       <ToastContainer />
     </div>
   );

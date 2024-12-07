@@ -24,19 +24,6 @@ const router = createBrowserRouter([
          {
             path: "/",
             element: <Home />,
-            loader: () => fetch(''),
-            // children: [
-            //    {
-            //       path: "/",
-            //       element: ,
-            //       loader: () => fetch(''),
-            //    },
-            //    {
-            //       path: "/category/:categoryName",
-            //       element: ,
-            //       loader: () => fetch(''),
-            //    },
-            // ]
          },
          {
             path: "/login",

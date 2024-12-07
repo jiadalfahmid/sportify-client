@@ -1,7 +1,6 @@
 import React from "react";
 
 const FAQ = () => {
-  // FAQ data array
   const faqData = [
     {
       question: "What is Sportify?",
@@ -32,7 +31,7 @@ const FAQ = () => {
               <input
                 type="radio"
                 name="faq-accordion"
-                defaultChecked={index === 0} // Open the first FAQ by default
+                defaultChecked={index === 0} 
               />
               <div className="collapse-title text-xl font-medium">
                 {faq.question}

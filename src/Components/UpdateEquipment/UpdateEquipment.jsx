@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const UpdateEquipment = () => {
-  const { id } = useParams(); // Retrieve equipment ID from the URL
+  const { id } = useParams(); 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     itemName: "",
@@ -18,7 +18,6 @@ const UpdateEquipment = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Fetch current equipment data to populate the form
   useEffect(() => {
     fetch(`https://sportify-sand-six.vercel.app/equipment/${id}`)
       .then((res) => {
@@ -106,12 +105,11 @@ const UpdateEquipment = () => {
               />
             </div>
           ))}
-
-          {/* Price Field (Numeric Input) */}
+          {/* Price field */}
           <div>
             <label className="block text-base-content font-medium mb-2">Price</label>
             <input
-              type="number" // Set input type to number
+              type="number"
               name="price"
               value={formData.price}
               onChange={handleChange}

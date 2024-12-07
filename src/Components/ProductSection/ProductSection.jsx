@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 
 const ProductSection = () => {
   const [products, setProducts] = useState([]);
-
-  // Fetch products from the API
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "https://sportify-sand-six.vercel.app/equipment"
+          "https://sportify-sand-six.vercel.app/equipment/six"
         );
         const data = await response.json();
         setProducts(data);
@@ -60,7 +58,7 @@ const ProductSection = () => {
                   </div>
                 </div>
               ))
-            : // Actual Product Cards
+            : //Product Cards
               products.map((product) => (
                 <div
                   key={product._id}

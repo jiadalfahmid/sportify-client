@@ -1,18 +1,26 @@
 import React, { useContext, useState } from "react";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Auth/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../../Auth/AuthProvider";
 
 const Login = () => {
-  const { login, setError, error, loading, signUpWithGoogle } = useContext(AuthContext);
+  const {
+    login,
+    setError,
+    error,
+    loading,
+    success,
+    setSuccess,
+    signUpWithGoogle,
+  } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   const from = location.state?.from?.pathname || "/";
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -22,22 +30,28 @@ const Login = () => {
       setError("");
       await login(email, password);
       toast.success("Login successful! Redirecting...");
-      navigate(from);
+      setTimeout(() => {
+        navigate(from);
+      }, 3000);
     } catch (err) {
       setError(err.message);
-      toast.error(`Error: ${err.message}`);
     }
   };
 
+  // Handle Google login
   const handleGoogleLogin = async () => {
     try {
       setError("");
       await signUpWithGoogle();
       toast.success("Google login successful! Redirecting...");
-      navigate(from);
+      setTimeout(() => {
+        navigate(from);
+      }, 2000);
     } catch (err) {
       setError(err.message);
-      toast.error(`Error: ${err.message}`);
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
     }
   };
 
@@ -48,6 +62,25 @@ const Login = () => {
           <h2 className="text-center text-3xl font-bold text-base-content mb-6">
             Welcome Back!
           </h2>
+          {/* Error Toast */}
+          {error && (
+            <div className="toast toast-top toast-center">
+              <div className="alert alert-error">
+                <span>{`Login Failed: ${error}`}</span>
+              </div>
+            </div>
+          )}
+
+          {/* Success Toast */}
+          {success && (
+            <div className="toast toast-top toast-center">
+              <div className="alert alert-success">
+                <span>{`Success: ${success}`}</span>
+              </div>
+            </div>
+          )}
+
+          {/* Email Field */}
           <div className="form-control mb-4">
             <label className="label">
               <span className="label-text text-base-content">Email</span>
@@ -61,6 +94,7 @@ const Login = () => {
             />
           </div>
 
+          {/* Password Field */}
           <div className="form-control mb-4 relative">
             <label className="label">
               <span className="label-text text-base-content">Password</span>
@@ -81,6 +115,7 @@ const Login = () => {
             </button>
           </div>
 
+          {/* Submit Button */}
           <div className="form-control mt-6">
             <button
               type="submit"
@@ -91,14 +126,18 @@ const Login = () => {
             </button>
           </div>
 
+          {/* Register Link */}
           <p className="text-center text-base-content mt-4">
-            Don't Have an Account?{" "}
+            Don't have an account?{" "}
             <Link to="/register" className="text-orange-500 hover:underline">
               Register Now
             </Link>
           </p>
 
+          {/* OR Divider */}
           <div className="divider my-6 text-base-content">OR</div>
+
+          {/* Google Login Button */}
           <button
             onClick={handleGoogleLogin}
             className="btn btn-outline text-orange-500 border-orange-500 w-full hover:bg-orange-500 hover:text-white"
@@ -108,7 +147,6 @@ const Login = () => {
           </button>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };

@@ -113,7 +113,7 @@ const Navbar = () => {
                 />
               </svg>
             </button>
-            <ul className="menu menu-sm dropdown-content mt-3 bg-base-100 rounded-box shadow-lg gap-2">
+            <ul className="menu menu-sm dropdown-content mt-3 bg-base-100 rounded-box shadow-lg gap-2 z-20">
               {links}
             </ul>
           </div>
