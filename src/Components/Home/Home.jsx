@@ -1,5 +1,5 @@
 import Categories from "../Categories/Categories";
-import WhyChooseUs from "../FeaturedEquipment/FeaturedEquipment";
+import WhyChooseUs from "../WhyChooseUs/WhyChooseUs";
 import Hero from "../Hero/Hero";
 import ProductSection from "../ProductSection/ProductSection";
 

@@ -6,36 +6,36 @@ const WhyChooseUs = () => {
       title: "Wide Range of Products",
       description:
         "Explore a diverse collection of sports equipment tailored to every need. From beginners to pros, Sportify has you covered!",
-      bgImg: "https://via.placeholder.com/400", // Replace with your image URL
-      colSpan: "lg:col-span-6", // Wide column for first row
+      bgImg: "https://images.unsplash.com/photo-1599236755629-17aff66ccda0?q=80&w=2018&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      colSpan: "lg:col-span-6",
     },
     {
       title: "High Performance Guaranteed",
       description:
         "Our products are designed for durability and performance. Trust Sportify to elevate your fitness and sporting experience.",
-      bgImg: "https://via.placeholder.com/400", // Replace with your image URL
-      colSpan: "lg:col-span-6", // Wide column for first row
+      bgImg: "https://images.unsplash.com/photo-1660211983492-9df0c82ba9ae?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fHNwb3J0JTIwZXF1aXBtZW50fGVufDB8fDB8fHww",
+      colSpan: "lg:col-span-6",
     },
     {
       title: "Nationwide Delivery",
       description:
         "Sportify ensures safe and timely delivery to all corners of Bangladesh. Your equipment, right at your doorstep!",
-      bgImg: "https://via.placeholder.com/400", // Replace with your image URL
-      colSpan: "lg:col-span-4", // Narrower column for second row
+      bgImg: "https://plus.unsplash.com/premium_photo-1733288427325-f43bc7f0e758?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+      colSpan: "lg:col-span-4",
     },
     {
       title: "Exceptional Customer Support",
       description:
         "Our customer service team is here to assist you with any queries or issues, ensuring a seamless shopping experience.",
-      bgImg: "https://via.placeholder.com/400", // Replace with your image URL
-      colSpan: "lg:col-span-4", // Narrower column for second row
+      bgImg: "https://plus.unsplash.com/premium_photo-1661816354638-d575287bf82d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTN8fHNwb3J0JTIwZXF1aXBtZW50fGVufDB8fDB8fHww", 
+      colSpan: "lg:col-span-4", 
     },
     {
       title: "Top Quality Standards",
       description:
         "Every product at Sportify is curated for excellence, ensuring value and satisfaction for our customers.",
-      bgImg: "https://via.placeholder.com/400", // Replace with your image URL
-      colSpan: "lg:col-span-4", // Narrower column for second row
+      bgImg: "https://images.unsplash.com/photo-1625834317364-b32c140fd360?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fHNwb3J0JTIwZXF1aXBtZW50fGVufDB8fDB8fHww",
+      colSpan: "lg:col-span-4",
     },
   ];
 
