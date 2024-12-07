@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
 
-
 const AllSportsEquipment = () => {
-  const [equipmentList, setEquipmentList] = useState(null); // null indicates data loading
+  const [equipmentList, setEquipmentList] = useState(null);
   const [isSorting, setIsSorting] = useState(false);
   const navigate = useNavigate();
 
@@ -25,7 +24,7 @@ const AllSportsEquipment = () => {
   }, []);
 
   const handleSort = () => {
-    fetchEquipment(true); // Fetch sorted data
+    fetchEquipment(true);
   };
 
   const handleViewDetails = (id) => {
@@ -34,7 +33,6 @@ const AllSportsEquipment = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      
       <Fade duration={200}>
         <h1 className="text-3xl font-bold mb-6 text-center text-orange-500">
           All Sports Equipment
@@ -50,20 +48,21 @@ const AllSportsEquipment = () => {
           }`}
           disabled={isSorting}
         >
-          {isSorting ? "Sorting..." : "Sort by Price (Descending)"}
+          {isSorting ? "Sorting..." : "Sort by Price"}
         </button>
       </div>
 
+      {/* Table */}
       <div className="overflow-x-auto">
-        <table className="table-auto w-full border-collapse border-none border">
+        <table className="table-auto w-full border-collapse border-none">
           <thead className="bg-base-300">
             <tr>
-              <th className="border-none pr-12 py-2"></th>
-              <th className="border-none pr-12 py-2">Name</th>
-              <th className="border-none pr-12 py-2">Category</th>
-              <th className="border-none pr-8 py-2">Price</th>
-              <th className="border-none pr-2 py-2">Stock</th>
-              <th className="border-none"></th>
+              <th className="pr-4 py-2"></th>
+              <th className="pr-4 py-2">Name</th>
+              <th className="pr-4 py-2 hidden md:table-cell">Category</th>
+              <th className="pr-4 py-2 hidden sm:table-cell">Price</th>
+              <th className="pr-4 py-2 hidden md:table-cell">Stock</th>
+              <th className="pr-4 py-2"></th>
             </tr>
           </thead>
           <tbody>
@@ -73,22 +72,22 @@ const AllSportsEquipment = () => {
                 .map((_, index) => (
                   <tr key={index} className="hover:bg-base-200">
                     <td className="px-4 py-2">
-                      <div className="w-36 h-36 bg-base-300 skeleton rounded-md shadow-md"></div>
+                      <div className="w-24 h-24 bg-base-300 skeleton rounded-md"></div>
                     </td>
                     <td className="px-4 py-2">
-                      <div className="w-24 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
+                      <div className="w-20 h-6 bg-base-300 skeleton rounded-md"></div>
+                    </td>
+                    <td className="px-4 py-2 hidden md:table-cell">
+                      <div className="w-20 h-6 bg-base-300 skeleton rounded-md"></div>
                     </td>
                     <td className="px-4 py-2">
-                      <div className="w-20 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
+                      <div className="w-16 h-6 bg-base-300 skeleton rounded-md"></div>
+                    </td>
+                    <td className="px-4 py-2 hidden sm:table-cell">
+                      <div className="w-20 h-6 bg-base-300 skeleton rounded-md"></div>
                     </td>
                     <td className="px-4 py-2">
-                      <div className="w-16 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
-                    </td>
-                    <td className="px-4 py-2">
-                      <div className="w-20 h-6 bg-base-300 skeleton rounded-md shadow-md"></div>
-                    </td>
-                    <td className="px-4 py-2 text-center">
-                      <div className="w-24 h-8 bg-base-300 skeleton rounded-md shadow-md"></div>
+                      <div className="w-24 h-8 bg-base-300 skeleton rounded-md"></div>
                     </td>
                   </tr>
                 ))}
@@ -96,18 +95,18 @@ const AllSportsEquipment = () => {
             {equipmentList &&
               equipmentList.map((item) => (
                 <tr key={item._id} className="hover:bg-base-200">
-                  <td className="border-none px-4 py-2">
+                  <td className="px-4 py-2">
                     <img
                       src={item.image}
                       alt={item.itemName}
-                      className="w-36 h-36 object-cover rounded bg-white"
+                      className="w-24 h-24 object-cover rounded-md bg-white"
                     />
                   </td>
-                  <td className="border-none px-4 py-2">{item.itemName}</td>
-                  <td className="border-none px-4 py-2">{item.categoryName}</td>
-                  <td className="border-none px-4 py-2">${item.price}</td>
-                  <td className="border-none px-4 py-2">{item.stockStatus}</td>
-                  <td className="border-none px-4 py-2 text-center">
+                  <td className="px-4 py-2">{item.itemName}</td>
+                  <td className="px-4 py-2 hidden md:table-cell">{item.categoryName}</td>
+                  <td className="px-4 py-2">${item.price}</td>
+                  <td className="px-4 py-2 hidden md:table-cell">{item.stockStatus}</td>
+                  <td className="px-4 py-2">
                     <button
                       onClick={() => handleViewDetails(item._id)}
                       className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition"
