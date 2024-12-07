@@ -95,16 +95,16 @@ const AllSportsEquipment = () => {
             {equipmentList &&
               equipmentList.map((item) => (
                 <tr key={item._id} className="hover:bg-base-200">
-                  <td className="px-4 py-2">
+                  <td className="md:px-4 md:py-2">
                     <img
                       src={item.image}
                       alt={item.itemName}
-                      className="w-24 h-24 object-cover rounded-md bg-white"
+                      className="w-full md:w-24 h-16 md:h-24 object-cover rounded-md bg-white"
                     />
                   </td>
                   <td className="px-4 py-2">{item.itemName}</td>
                   <td className="px-4 py-2 hidden md:table-cell">{item.categoryName}</td>
-                  <td className="px-4 py-2">${item.price}</td>
+                  <td className="px-4 py-2 hidden md:table-cell">${item.price}</td>
                   <td className="px-4 py-2 hidden md:table-cell">{item.stockStatus}</td>
                   <td className="px-4 py-2">
                     <button

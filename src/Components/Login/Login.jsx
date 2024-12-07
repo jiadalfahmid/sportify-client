@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../Auth/AuthProvider";
 
 const Login = () => {
@@ -29,7 +28,6 @@ const Login = () => {
     try {
       setError("");
       await login(email, password);
-      toast.success("Login successful! Redirecting...");
       setTimeout(() => {
         navigate(from);
       }, 3000);
@@ -46,12 +44,9 @@ const Login = () => {
       toast.success("Google login successful! Redirecting...");
       setTimeout(() => {
         navigate(from);
-      }, 2000);
+      }, 3000);
     } catch (err) {
       setError(err.message);
-      setTimeout(() => {
-        navigate("/login");
-      }, 3000);
     }
   };
 
