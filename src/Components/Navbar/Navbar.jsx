@@ -13,11 +13,13 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
+      await toast.success("Logged out successfully!");
+      await setTimeout(() => navigate("/"), 2000);
       await logout();
-      toast.success("Logged out successfully!");
     } catch (err) {
       toast.error(`Logout error: ${err.message}`);
     }
+    
   };
 
   const toggleDarkMode = () => {
@@ -126,7 +128,7 @@ const Navbar = () => {
 
         <div className="navbar-end flex items-center space-x-4">
           <button
-            className="text-2xl cursor-pointer text-base-content btn hover:bg-base-300 btn-circle btn-ghost hover:text-orange-500"
+            className="text-2xl cursor-pointer text-base-content btn hover:bg-base-300 btn-circle btn-ghost hover:text-orange-500 swap swap-rotate"
             onClick={toggleDarkMode}
           >
             {darkMode ? <FaSun /> : <FaMoon />}

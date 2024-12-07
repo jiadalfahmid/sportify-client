@@ -1,8 +1,11 @@
+import Hero from "../Hero/Hero";
+import ProductSection from "../ProductSection/ProductSection";
 
 const Home = () => {
    return (
       <div>
-         Hello 123
+         <Hero/>
+         <ProductSection/>
       </div>
    );
 };

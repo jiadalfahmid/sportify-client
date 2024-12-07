@@ -20,7 +20,7 @@ const UpdateEquipment = () => {
 
   // Fetch current equipment data to populate the form
   useEffect(() => {
-    fetch(`//localhost:5000/equipment/${id}`)
+    fetch(`https://sportify-sand-six.vercel.app/equipment/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch equipment details.");
@@ -54,13 +54,12 @@ const UpdateEquipment = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Parse the price to a number before sending the data
     const updatedFormData = {
       ...formData,
-      price: parseFloat(formData.price), // Ensure price is numeric
+      price: parseFloat(formData.price),
     };
 
-    fetch(`//localhost:5000/equipment/${id}`, {
+    fetch(`https://sportify-sand-six.vercel.app/equipment/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +74,7 @@ const UpdateEquipment = () => {
       })
       .then(() => {
         toast.success("Equipment updated successfully!");
-        setTimeout(() => navigate("/my-equipment-list"), 2000); // Navigate after toast
+        setTimeout(() => navigate("/my-equipment-list"), 2000); 
       })
       .catch((error) => {
         toast.error(error.message);

@@ -15,7 +15,7 @@ const MyEquipmentList = () => {
   useEffect(() => {
     if (user?.email) {
       setLoading(true);
-      fetch(`//localhost:5000/equipment/user?email=${user.email}`)
+      fetch(`https://sportify-sand-six.vercel.app/equipment/user?email=${user.email}`)
         .then((res) => {
           if (!res.ok) {
             throw new Error("Failed to fetch equipment data.");
@@ -33,7 +33,7 @@ const MyEquipmentList = () => {
   };
 
   const handleDelete = (id) => {
-    fetch(`//localhost:5000/equipment/${id}`, {
+    fetch(`https://sportify-sand-six.vercel.app/equipment/${id}`, {
       method: "DELETE",
     })
       .then((res) => {

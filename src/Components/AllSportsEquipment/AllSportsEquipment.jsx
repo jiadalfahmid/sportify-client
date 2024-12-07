@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Fade } from "react-awesome-reveal";
+
 
 const AllSportsEquipment = () => {
   const [equipmentList, setEquipmentList] = useState(null); // null indicates data loading
@@ -9,7 +11,7 @@ const AllSportsEquipment = () => {
   const fetchEquipment = (sort = false) => {
     setIsSorting(sort);
     const url = sort
-      ? "http://localhost:5000/equipment/sorted?sort=price_desc"
+      ? "https://sportify-sand-six.vercel.app/equipment/sorted?sort=price_desc"
       : "https://sportify-sand-six.vercel.app/equipment";
     fetch(url)
       .then((res) => res.json())
@@ -32,9 +34,12 @@ const AllSportsEquipment = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center text-orange-500">
-        All Sports Equipment
-      </h1>
+      
+      <Fade duration={200}>
+        <h1 className="text-3xl font-bold mb-6 text-center text-orange-500">
+          All Sports Equipment
+        </h1>
+      </Fade>
 
       {/* Sort Button */}
       <div className="text-right mb-4">

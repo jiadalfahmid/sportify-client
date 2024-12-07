@@ -11,7 +11,7 @@ const Footer = () => {
           <p className="font-bold">
             Bringing premium sports gear since 2005
           </p>
-          <p>info@spotify.com</p>
+          <p>info@sportify.com</p>
           <p>Copyright © {new Date().getFullYear()} - All rights reserved</p>
         </aside>
         <nav>
