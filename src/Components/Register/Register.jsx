@@ -5,7 +5,7 @@ import { AuthContext } from "../../Auth/AuthProvider";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { signUp, error, loading, setError, setSuccess, success,signUpWithGoogle } =
+  const { signUp, error, loading, setError, setSuccess, success,signUpWithGoogle, user } =
     useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -49,14 +49,14 @@ const Register = () => {
   };
 
   return (
-    <div className="mx-auto min-h-screen flex justify-center items-center bg-base-200">
+    <div className="mx-auto min-h-screen p-16 flex max-md:flex-col justify-center items-center bg-base-200">
       <div className="card bg-base-100 w-full max-w-md shadow-xl rounded-lg">
         <form onSubmit={handleSubmit} className="card-body p-6">
           <h2 className="text-center text-3xl font-bold text-base-content mb-6">
             Create Your Account
           </h2>
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-          {success && <p className="text-green-500 text-center mb-4">{success}</p>}
+          {user && <p className="text-green-500 text-center mb-4">{success}</p>}
 
           <div className="form-control mb-4">
             <label className="label">
@@ -144,6 +144,9 @@ const Register = () => {
             Sign up with Google
           </button>
         </form>
+      </div>
+      <div className="md:w-1/2">
+      <img src="./Register.png" alt="" />
       </div>
     </div>
   );

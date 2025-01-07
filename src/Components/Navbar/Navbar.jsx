@@ -1,9 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
 import { Tooltip as ReactTooltip } from 'react-tooltip'
-import { FaSun, FaMoon } from "react-icons/fa";
+import { RiMoonClearFill } from "react-icons/ri";
+import { LuSun } from "react-icons/lu";
 import "react-toastify/dist/ReactToastify.css";
 import "react-tooltip/dist/react-tooltip.css";
 
@@ -14,7 +15,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await toast.success("Logged out successfully!");
-      await setTimeout(() => navigate("/"), 2000);
+      await setTimeout(() => Navigate("/"), 2000);
       await logout();
     } catch (err) {
       toast.error(`Logout error: ${err.message}`);
@@ -24,7 +25,7 @@ const Navbar = () => {
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
-    document.documentElement.setAttribute("data-theme", darkMode ? "light" : "dark");
+    document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light");
   };
 
   const links = (
@@ -89,11 +90,25 @@ const Navbar = () => {
           </li>
         </>
       )}
+      <li>
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            `font-semibold px-3 py-2 rounded ${
+              isActive
+                ? "bg-orange-500 text-white"
+                : "text-base-content hover:bg-orange-500 hover:text-white"
+            }`
+          }
+        >
+          Contact Us
+        </NavLink>
+      </li>
     </>
   );
 
   return (
-    <div className=" bg-base-200">
+    <div className=" bg-base-100 sticky top-0 z-20 px-4">
       <div className="navbar mx-auto container">
         <div className="navbar-start">
           <div className="dropdown">
@@ -131,7 +146,7 @@ const Navbar = () => {
             className="text-2xl cursor-pointer text-base-content btn hover:bg-base-300 btn-circle btn-ghost hover:text-orange-500 swap swap-rotate"
             onClick={toggleDarkMode}
           >
-            {darkMode ? <FaSun /> : <FaMoon />}
+            {darkMode ? <RiMoonClearFill /> : <LuSun />}
           </button>
 
           {user ? (

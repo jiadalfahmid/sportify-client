@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
 import { Fade } from "react-awesome-reveal";
 
 const AllSportsEquipment = () => {
-  const [equipmentList, setEquipmentList] = useState(null);
+  const [equipmentList, setEquipmentList] = useState([]);
   const [isSorting, setIsSorting] = useState(false);
   const navigate = useNavigate();
 
@@ -32,92 +33,113 @@ const AllSportsEquipment = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <Fade duration={200}>
-        <h1 className="text-3xl font-bold mb-6 text-center text-orange-500">
-          All Sports Equipment
-        </h1>
-      </Fade>
+    <div className="mx-auto p-6 bg-base-200">
+      <div className="container mx-auto">
+        <Fade duration={200}>
+          <h1 className="text-3xl font-bold mb-6 text-center text-orange-500">
+            All Sports Equipment
+          </h1>
+        </Fade>
+        {/* Sort Button */}
+        <div className="text-right mb-4">
+          <button
+            onClick={handleSort}
+            className={`bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition ${
+              isSorting ? "cursor-not-allowed opacity-50" : ""
+            }`}
+            disabled={isSorting}
+          >
+            {isSorting ? "Sorting..." : "Sort by Price (Ascending)"}
+          </button>
+        </div>
 
-      {/* Sort Button */}
-      <div className="text-right mb-4">
-        <button
-          onClick={handleSort}
-          className={`bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition ${
-            isSorting ? "cursor-not-allowed opacity-50" : ""
-          }`}
-          disabled={isSorting}
-        >
-          {isSorting ? "Sorting..." : "Sort by Price"}
-        </button>
-      </div>
-
-      {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="table-auto w-full border-collapse border-none">
-          <thead className="bg-base-300">
-            <tr>
-              <th className="pr-4 py-2"></th>
-              <th className="pr-4 py-2">Name</th>
-              <th className="pr-4 py-2 hidden md:table-cell">Category</th>
-              <th className="pr-4 py-2 hidden sm:table-cell">Price</th>
-              <th className="pr-4 py-2 hidden md:table-cell">Stock</th>
-              <th className="pr-4 py-2"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {!equipmentList &&
-              Array(4)
-                .fill(0)
-                .map((_, index) => (
-                  <tr key={index} className="hover:bg-base-200">
-                    <td className="px-4 py-2">
-                      <div className="w-24 h-24 bg-base-300 skeleton rounded-md"></div>
-                    </td>
-                    <td className="px-4 py-2">
-                      <div className="w-20 h-6 bg-base-300 skeleton rounded-md"></div>
-                    </td>
-                    <td className="px-4 py-2 hidden md:table-cell">
-                      <div className="w-20 h-6 bg-base-300 skeleton rounded-md"></div>
-                    </td>
-                    <td className="px-4 py-2">
-                      <div className="w-16 h-6 bg-base-300 skeleton rounded-md"></div>
-                    </td>
-                    <td className="px-4 py-2 hidden sm:table-cell">
-                      <div className="w-20 h-6 bg-base-300 skeleton rounded-md"></div>
-                    </td>
-                    <td className="px-4 py-2">
-                      <div className="w-24 h-8 bg-base-300 skeleton rounded-md"></div>
-                    </td>
-                  </tr>
-                ))}
-
-            {equipmentList &&
-              equipmentList.map((item) => (
-                <tr key={item._id} className="hover:bg-base-200">
-                  <td className="md:px-4 md:py-2">
-                    <img
-                      src={item.image}
-                      alt={item.itemName}
-                      className="w-full md:w-24 h-16 md:h-24 object-cover rounded-md bg-white"
-                    />
-                  </td>
-                  <td className="px-4 py-2">{item.itemName}</td>
-                  <td className="px-4 py-2 hidden md:table-cell">{item.categoryName}</td>
-                  <td className="px-4 py-2 hidden md:table-cell">${item.price}</td>
-                  <td className="px-4 py-2 hidden md:table-cell">{item.stockStatus}</td>
-                  <td className="px-4 py-2">
-                    <button
-                      onClick={() => handleViewDetails(item._id)}
-                      className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition"
+        {/* Cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {equipmentList.length === 0
+            ? // Skeleton Loaders
+              Array.from({ length: 8 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="bg-base-100 border border-base-200 rounded-lg shadow-md overflow-hidden animate-pulse"
+                >
+                  {/* Skeleton Image */}
+                  <div className="w-full h-48 bg-base-300"></div>
+                  {/* Skeleton Details */}
+                  <div className="p-4">
+                    <div className="h-6 bg-base-300 rounded mb-4"></div>
+                    <div className="h-4 bg-base-300 rounded mb-3"></div>
+                    <div className="h-4 bg-base-300 rounded"></div>
+                    <div className="flex items-center justify-between mt-4">
+                      {/* Skeleton Price */}
+                      <div className="h-6 bg-base-300 rounded w-20"></div>
+                      {/* Skeleton Rating */}
+                      <div className="h-6 bg-base-300 rounded w-16"></div>
+                    </div>
+                  </div>
+                  {/* Skeleton Button */}
+                  <div className="p-4 bg-base-200 flex justify-between items-center">
+                    <div className="h-4 bg-base-300 rounded w-24"></div>
+                    <div className="h-8 bg-base-300 rounded w-20"></div>
+                  </div>
+                </div>
+              ))
+            : // Product Cards
+              equipmentList.map((product) => (
+                <div
+                  key={product._id}
+                  className="bg-base-100 border border-base-200 rounded-lg shadow-md overflow-hidden hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                >
+                  {/* Product Image */}
+                  <img
+                    src={product.image}
+                    alt={product.itemName}
+                    className="w-48 mx-auto h-48 object-cover"
+                  />
+                  {/* Product Details */}
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold text-base-content">
+                      {product.itemName}
+                    </h3>
+                    <p className="text-sm text-base-content mt-1">
+                      {product.categoryName}
+                    </p>
+                    <p className="text-sm line-clamp-1 mt-1">
+                      {product.description}
+                    </p>
+                    <div className="flex items-center justify-between mt-4">
+                      {/* Price */}
+                      <p className="text-lg font-bold text-orange-500">
+                        ${product.price}
+                      </p>
+                      {/* Rating */}
+                      <span className="text-sm text-base-content flex items-center">
+                        <ReactStars
+                          count={5}
+                          value={product.rating}
+                          size={16}
+                          isHalf={true}
+                          edit={false}
+                          activeColor="#ffc107"
+                        />
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-4 bg-base-200 flex justify-between items-center">
+                    <p className="text-sm text-base-content">
+                      {product.stockStatus > 0
+                        ? `${product.stockStatus} in stock`
+                        : "Out of stock"}
+                    </p>
+                    <Link
+                      to={`/equipment/${product._id}`}
+                      className="px-4 py-2 bg-orange-500 text-white text-sm rounded shadow hover:bg-orange-600 transition duration-200"
                     >
                       View Details
-                    </button>
-                  </td>
-                </tr>
+                    </Link>
+                  </div>
+                </div>
               ))}
-          </tbody>
-        </table>
+        </div>
       </div>
     </div>
   );

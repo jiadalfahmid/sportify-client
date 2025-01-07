@@ -31,7 +31,7 @@ const Categories = () => {
   ];
 
   return (
-    <div className="py-10 bg-base-100">
+    <div className="py-10">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center text-orange-500 mb-8">
           Explore Sports Categories
@@ -40,7 +40,7 @@ const Categories = () => {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="flex flex-col items-center bg-base-200 p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+              className="flex flex-col items-center bg-base-100 p-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300"
             >
               {/* Category Icon */}
               <div className="mb-4">{category.icon}</div>

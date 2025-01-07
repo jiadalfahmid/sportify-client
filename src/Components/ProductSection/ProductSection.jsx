@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const ProductSection = () => {
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -20,12 +21,12 @@ const ProductSection = () => {
   }, []);
 
   return (
-    <div className="py-10 bg-base-100">
+    <div className="py-10">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center text-orange-500 mb-8">
           Explore Our Sports Equipment
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
           {products.length === 0
             ? // Skeleton Loaders
               Array.from({ length: 6 }).map((_, index) => (
@@ -58,7 +59,7 @@ const ProductSection = () => {
                   </div>
                 </div>
               ))
-            : //Product Cards
+            : // Product Cards
               products.map((product) => (
                 <div
                   key={product._id}
@@ -68,27 +69,24 @@ const ProductSection = () => {
                   <img
                     src={product.image}
                     alt={product.itemName}
-                    className="w-full h-96 object-cover"
+                    className="w-48 mx-auto h-48 object-cover"
                   />
-
                   {/* Product Details */}
                   <div className="p-4">
-                    <h3 className="text-xl font-semibold text-base-content">
+                    <h3 className="text-lg font-semibold text-base-content">
                       {product.itemName}
                     </h3>
                     <p className="text-sm text-base-content mt-1">
                       {product.categoryName}
                     </p>
-                    <p className="text-base-content text-sm mt-2 line-clamp-2">
+                    <p className="text-sm line-clamp-1 mt-1">
                       {product.description}
                     </p>
-
                     <div className="flex items-center justify-between mt-4">
                       {/* Price */}
                       <p className="text-lg font-bold text-orange-500">
                         ${product.price}
                       </p>
-
                       {/* Rating */}
                       <span className="text-sm text-base-content flex items-center">
                         <ReactStars
@@ -99,14 +97,9 @@ const ProductSection = () => {
                           edit={false}
                           activeColor="#ffc107"
                         />
-                        <p className="text-base-content ml-2">
-                          ({product.rating})
-                        </p>
                       </span>
                     </div>
                   </div>
-
-                  {/* View Details Button */}
                   <div className="p-4 bg-base-200 flex justify-between items-center">
                     <p className="text-sm text-base-content">
                       {product.stockStatus > 0
@@ -122,6 +115,14 @@ const ProductSection = () => {
                   </div>
                 </div>
               ))}
+        </div>
+        <div className="flex pt-8">
+          <Link
+            to="/all-sports-equipment"
+            className="btn bg-orange-500 mx-auto text-white hover:bg-orange-600"
+          >
+            Explore All Products
+          </Link>
         </div>
       </div>
     </div>

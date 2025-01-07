@@ -82,8 +82,8 @@ const EquipmentDetails = () => {
   } = equipment;
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div className="mx-auto p-6 bg-base-200">
+      <div className="grid bg-base-100 rounded-lg container p-12 mx-auto grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Image Section */}
         <div className="flex items-center justify-center">
           <div className="w-72 h-72 bg-gray-200 rounded-md shadow-md flex items-center justify-center">
@@ -158,7 +158,7 @@ const EquipmentDetails = () => {
       <div className="text-center mt-10">
         <button
           onClick={() => window.history.back()}
-          className="bg-gray-700 text-white px-6 py-2 rounded hover:bg-gray-800 transition"
+          className="bg-orange-500 text-white px-6 py-2 rounded hover:bg-gray-800 transition"
         >
           Go Back
         </button>

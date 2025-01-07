@@ -13,6 +13,7 @@ import AllSportsEquipment from "../Components/AllSportsEquipment/AllSportsEquipm
 import EquipmentDetails from "../Components/EquipmentDetails/EquipmentDetails";
 import MyEquipmentList from "../Components/MyEquipmentList/MyEquipmentList";
 import UpdateEquipment from "../Components/UpdateEquipment/UpdateEquipment";
+import Contact from "../Components/Contact/Contact";
 
 
 const router = createBrowserRouter([
@@ -38,12 +39,16 @@ const router = createBrowserRouter([
             element: <AllSportsEquipment/>,
           },
          {
+            path: "/contact",
+            element: <Contact/>,
+          },
+         {
             path: "/add-equipment",
             element: <PrivateRouter><AddEquipment/></PrivateRouter>,
           },
          {
             path: "/equipment/:id",
-            element: <PrivateRouter><EquipmentDetails/></PrivateRouter>,
+            element: <EquipmentDetails/>,
           },
          {
             path: "/my-equipment-list",

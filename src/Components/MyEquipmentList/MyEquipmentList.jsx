@@ -58,83 +58,84 @@ const MyEquipmentList = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center text-orange-500">
-        My Equipment List
-      </h1>
-      {loading ? (
-        <p className="text-center text-gray-500">Loading equipment...</p>
-      ) : error ? (
-        <p className="text-center text-red-500">{error}</p>
-      ) : userEquipment.length === 0 ? (
-        <p className="text-center text-gray-500">You have not added any equipment yet.</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {userEquipment.map((equipment) => (
-            <div key={equipment._id} className="card bg-base-100 shadow-xl">
-              <figure className="px-10 pt-10">
-                <img
-                  src={equipment.image}
-                  alt={equipment.itemName}
-                  className="rounded-xl w-36 h-36 object-cover bg-white"
-                />
-              </figure>
-              <div className="card-body items-center text-center">
-                <h2 className="card-title">{equipment.itemName}</h2>
-                <p>{equipment.description}</p>
-                <div className="card-actions flex gap-4">
-                  <button
-                    className="btn bg-orange-500 text-white hover:bg-orange-600"
-                    onClick={() => handleUpdate(equipment._id)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="btn btn-error"
-                    onClick={() => openDeleteModal(equipment)}
-                  >
-                    Delete
-                  </button>
+    <div className="bg-base-200 p-6 pb-16">
+      <div className="mx-auto container">
+        <h1 className="text-3xl font-bold mb-6 text-center text-orange-500">
+          My Equipment List
+        </h1>
+        {loading ? (
+          <p className="text-center text-gray-500">Loading equipment...</p>
+        ) : error ? (
+          <p className="text-center text-red-500">{error}</p>
+        ) : userEquipment.length === 0 ? (
+          <p className="text-center text-gray-500">You have not added any equipment yet.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {userEquipment.map((equipment) => (
+              <div key={equipment._id} className="card bg-base-100 shadow-xl">
+                <figure className="px-10 pt-10">
+                  <img
+                    src={equipment.image}
+                    alt={equipment.itemName}
+                    className="rounded-xl w-36 h-36 object-cover bg-white"
+                  />
+                </figure>
+                <div className="card-body items-center text-center">
+                  <h2 className="card-title">{equipment.itemName}</h2>
+                  <p>{equipment.description}</p>
+                  <div className="card-actions flex gap-4">
+                    <button
+                      className="btn bg-orange-500 text-white hover:bg-orange-600"
+                      onClick={() => handleUpdate(equipment._id)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="btn btn-error"
+                      onClick={() => openDeleteModal(equipment)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Delete Confirmation Modal */}
-      <dialog id="delete_modal" className="modal">
-        <div className="modal-box">
-          <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h3 className="text-lg font-bold">Confirm Deletion</h3>
-          <p className="py-4">
-            Are you sure you want to delete{" "}
-            <span className="font-bold">
-              {selectedEquipment ? selectedEquipment.itemName : ""}
-            </span>
-            ?
-          </p>
-          <div className="modal-action">
-            <button
-              className="btn btn-error"
-              onClick={() => handleDelete(selectedEquipment._id)}
-            >
-              Delete
-            </button>
-            <button
-              className="btn"
-              onClick={() => document.getElementById("delete_modal").close()}
-            >
-              Cancel
-            </button>
+            ))}
           </div>
-        </div>
-      </dialog>
-      <ToastContainer />
+        )}
+        {/* Delete Confirmation Modal */}
+        <dialog id="delete_modal" className="modal">
+          <div className="modal-box">
+            <form method="dialog">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            <h3 className="text-lg font-bold">Confirm Deletion</h3>
+            <p className="py-4">
+              Are you sure you want to delete{" "}
+              <span className="font-bold">
+                {selectedEquipment ? selectedEquipment.itemName : ""}
+              </span>
+              ?
+            </p>
+            <div className="modal-action">
+              <button
+                className="btn btn-error"
+                onClick={() => handleDelete(selectedEquipment._id)}
+              >
+                Delete
+              </button>
+              <button
+                className="btn"
+                onClick={() => document.getElementById("delete_modal").close()}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </dialog>
+        <ToastContainer />
+      </div>
     </div>
   );
 };

@@ -83,93 +83,92 @@ const UpdateEquipment = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto my-8 p-6 bg-base-200 rounded-md shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-center text-orange-500">
-        Update Equipment
-      </h1>
-      {error && <p className="text-center text-red-500 mb-4">{error}</p>}
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {["image", "itemName", "categoryName", "rating", "stockStatus", "customization", "processingTime"].map((key) => (
-            <div key={key}>
-              <label className="block text-base-content font-medium mb-2">
-                {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
-              </label>
+    <div className="p-8">
+      <div className="max-w-4xl mx-auto p-6 bg-base-100 rounded-md shadow-md">
+        <h1 className="text-2xl font-bold mb-6 text-center text-orange-500">
+          Update Equipment
+        </h1>
+        {error && <p className="text-center text-red-500 mb-4">{error}</p>}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {["image", "itemName", "categoryName", "rating", "stockStatus", "customization", "processingTime"].map((key) => (
+              <div key={key}>
+                <label className="block text-base-content font-medium mb-2">
+                  {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                </label>
+                <input
+                  type="text"
+                  name={key}
+                  value={formData[key]}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
+                  required
+                />
+              </div>
+            ))}
+            {/* Price field */}
+            <div>
+              <label className="block text-base-content font-medium mb-2">Price</label>
               <input
-                type="text"
-                name={key}
-                value={formData[key]}
+                type="number"
+                name="price"
+                value={formData.price}
                 onChange={handleChange}
                 className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
                 required
               />
             </div>
-          ))}
-          {/* Price field */}
-          <div>
-            <label className="block text-base-content font-medium mb-2">Price</label>
-            <input
-              type="number"
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-              className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
-              required
-            />
+            {/* Description Field */}
+            <div className="md:col-span-2">
+              <label className="block text-base-content font-medium mb-2">Description</label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                rows="4"
+                className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
+                required
+              />
+            </div>
           </div>
-
-          {/* Description Field */}
-          <div className="md:col-span-2">
-            <label className="block text-base-content font-medium mb-2">Description</label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              rows="4"
-              className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
-              required
-            />
+          {/* Read-only Fields */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-base-content font-medium mb-2">User Email</label>
+              <input
+                type="email"
+                name="userEmail"
+                value={formData.userEmail}
+                className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
+                readOnly
+              />
+            </div>
+            <div>
+              <label className="block text-base-content font-medium mb-2">User Name</label>
+              <input
+                type="text"
+                name="userName"
+                value={formData.userName}
+                className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
+                readOnly
+              />
+            </div>
           </div>
-        </div>
-
-        {/* Read-only Fields */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-base-content font-medium mb-2">User Email</label>
-            <input
-              type="email"
-              name="userEmail"
-              value={formData.userEmail}
-              className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
-              readOnly
-            />
+          {/* Submit Button */}
+          <div className="text-center">
+            <button
+              type="submit"
+              disabled={isLoading}
+              className={`bg-orange-500 text-white font-bold py-2 px-6 rounded ${
+                isLoading ? "cursor-not-allowed opacity-50" : "hover:bg-orange-600 transition"
+              }`}
+            >
+              {isLoading ? "Updating..." : "Update Equipment"}
+            </button>
           </div>
-          <div>
-            <label className="block text-base-content font-medium mb-2">User Name</label>
-            <input
-              type="text"
-              name="userName"
-              value={formData.userName}
-              className="w-full border border-gray-300 bg-base-100 text-base-content rounded p-2 focus:outline-none focus:ring focus:ring-orange-500"
-              readOnly
-            />
-          </div>
-        </div>
-
-        {/* Submit Button */}
-        <div className="text-center">
-          <button
-            type="submit"
-            disabled={isLoading}
-            className={`bg-orange-500 text-white font-bold py-2 px-6 rounded ${
-              isLoading ? "cursor-not-allowed opacity-50" : "hover:bg-orange-600 transition"
-            }`}
-          >
-            {isLoading ? "Updating..." : "Update Equipment"}
-          </button>
-        </div>
-      </form>
-      <ToastContainer />
+        </form>
+        <ToastContainer />
+      </div>
     </div>
   );
 };
